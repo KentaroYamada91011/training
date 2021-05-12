@@ -1,24 +1,24 @@
-# README
+# myapp
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Models
 
-Things you may want to cover:
+Before implementing, I surmised these models might be required.
 
-* Ruby version
+* `User`
+    - is responsible for detecting who are you
+    - is used for authentication and authorization
+    - possible attributes: `id`, `name`, `password`, `role`
+* `Task`
+    - is responsible for storing **Task**
+    - belongs to `User`
+    - possible attributes: `id`, `name`, `description`, `due_date`, `priority`, `status`
+* `Label`
+    - is responsible for storing **Label**
+    - associates with `Tasks` as Many to Many
+    - possible attributes: `id`, `name`, `color`
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
++------+         +------+        +-------+
+| User |-------->| Task |<------>| Label |
++------|         +------+        +-------+
+```
