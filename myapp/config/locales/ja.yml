@@ -38,6 +38,8 @@ ja:
     submit: 送信
     delete: 削除
     logout: ログアウト
+    flash:
+      login_required: ログインする必要があります
   pages:
     tasks:
       page_title: タスク一覧

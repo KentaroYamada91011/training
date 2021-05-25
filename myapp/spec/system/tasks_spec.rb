@@ -1,7 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe TasksController, type: :system do
-  let(:user) { User.find_by!(name: 'tester') } # TODO: Replace it after implementing login/logout
+  let(:user) { create(:user) }
+
+  before do
+    login_as user
+  end
 
   describe 'Tasks page' do
     it 'lets a user show tasks' do
@@ -165,6 +169,35 @@ RSpec.describe TasksController, type: :system do
 
       expect(page).not_to have_spec("Task##{task.id}")
     end
+
+    it 'redirects the user without session' do
+      logout
+
+      visit '/'
+
+      expect(page).to have_current_path('/en/login')
+      expect(page).to have_text('You must login beforehand')
+    end
+
+    it "cannot see another user's tasks" do
+      user2 = create(:user)
+      task1 = create(:task, user: user, name: 'task1', description: 'Do TASK1!', due_date: 3.days.since, priority: :high, status: :doing)
+      task2 = create(:task, user: user, name: 'task2', description: 'Do TASK2 if you have time.', priority: :low, status: :waiting)
+      task3 = create(:task, user: user2, name: 'task3', description: 'Do TASK3 if you have time.', priority: :low, status: :waiting)
+
+      visit '/'
+
+      expect(page).to have_spec("Task##{task1.id}")
+      expect(page).to have_spec("Task##{task2.id}")
+      expect(page).not_to have_spec("Task##{task3.id}")
+
+      logout
+      login_as user2
+
+      expect(page).not_to have_spec("Task##{task1.id}")
+      expect(page).not_to have_spec("Task##{task2.id}")
+      expect(page).to have_spec("Task##{task3.id}")
+    end
   end
 
   describe 'Task new page' do
@@ -210,6 +243,15 @@ RSpec.describe TasksController, type: :system do
       expect(page).to have_text 'Name must be filled in'
       expect(page).to have_text 'Description must be filled in'
       expect(Task.find_by(name: 'New Task: Foo')).to be_nil
+    end
+
+    it 'redirects the user without session' do
+      logout
+
+      visit '/tasks/new'
+
+      expect(page).to have_current_path('/en/login')
+      expect(page).to have_text('You must login beforehand')
     end
   end
 
@@ -275,6 +317,20 @@ RSpec.describe TasksController, type: :system do
       within_spec("Task##{task.id}") do
         expect(page).to have_text 'EDIT!'
       end
+    end
+
+    it 'redirects the user without session' do
+      task = create(:task, user: user, name: 'to be edited', description: 'EDIT!', priority: :normal, status: :waiting)
+
+      visit "/en/tasks/#{task.id}/edit"
+      expect(page).to have_current_path("/en/tasks/#{task.id}/edit")
+
+      logout
+
+      visit "/en/tasks/#{task.id}/edit"
+
+      expect(page).to have_current_path('/en/login')
+      expect(page).to have_text('You must login beforehand')
     end
   end
 end

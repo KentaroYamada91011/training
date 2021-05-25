@@ -38,6 +38,8 @@ en:
     submit: Submit
     delete: Delete
     logout: Logout
+    flash:
+      login_required: You must login beforehand
   pages:
     tasks:
       page_title: The list of tasks
