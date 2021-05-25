@@ -1,6 +1,10 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all.order(:id)
+    @params = params.permit(:name, :status).select { |_k, v| v.presence }
+    query = Task.all
+    query = query.where('name LIKE ?', "%#{ApplicationRecord.sanitize_sql_like(@params[:name])}%") if @params[:name]
+    query = query.where(status: @params[:status]) if @params[:status]
+    @tasks = query.order(:id)
   end
 
   def new
