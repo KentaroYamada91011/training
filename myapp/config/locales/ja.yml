@@ -37,6 +37,7 @@ ja:
     edit: 編集
     submit: 送信
     delete: 削除
+    logout: ログアウト
   pages:
     tasks:
       page_title: タスク一覧

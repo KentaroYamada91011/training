@@ -5,5 +5,6 @@ Rails.application.routes.draw do
     resources :tasks, except: :index
     get '/login', to: 'login#index'
     post '/login', to: 'login#create'
+    delete '/logout', to: 'logout#destroy'
   end
 end

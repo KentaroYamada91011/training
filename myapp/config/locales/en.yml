@@ -37,6 +37,7 @@ en:
     edit: Edit
     submit: Submit
     delete: Delete
+    logout: Logout
   pages:
     tasks:
       page_title: The list of tasks
