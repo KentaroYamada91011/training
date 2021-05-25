@@ -84,6 +84,69 @@ RSpec.describe TasksController, type: :system do
       expect(page).not_to have_spec("Task##{task3.id}")
     end
 
+    it 'navigates a user to the next page' do
+      tasks = create_list(:task, 11).sort_by!(&:id)
+
+      visit '/'
+
+      tasks[0...10].each do |task|
+        expect(page).to have_spec("Task##{task.id}")
+      end
+      expect(page).not_to have_spec("Task##{tasks[10].id}")
+
+      within_spec('tasks-pagination') do
+        click_link 'Next ›'
+      end
+
+      tasks[0...10].each do |task|
+        expect(page).not_to have_spec("Task##{task.id}")
+      end
+      expect(page).to have_spec("Task##{tasks[10].id}")
+    end
+
+    it 'navigates a user to the next page with filtered query' do
+      tasks_abc = create_list(:task, 11, name: 'abc').sort_by!(&:id)
+      tasks_xyz = create_list(:task, 11, name: 'xyz').sort_by!(&:id)
+
+      visit '/'
+
+      fill_in :name, with: 'abc'
+      click_button 'Search'
+
+
+      tasks_abc[0...10].each do |task|
+        expect(page).to have_spec("Task##{task.id}")
+      end
+      expect(page).not_to have_spec("Task##{tasks_abc[10].id}")
+
+      within_spec('tasks-pagination') do
+        click_link 'Next ›'
+      end
+
+
+      tasks_abc[0...10].each do |task|
+        expect(page).not_to have_spec("Task##{task.id}")
+      end
+      expect(page).to have_spec("Task##{tasks_abc[10].id}")
+
+      fill_in :name, with: 'xyz'
+      click_button 'Search'
+
+      tasks_xyz[0...10].each do |task|
+        expect(page).to have_spec("Task##{task.id}")
+      end
+      expect(page).not_to have_spec("Task##{tasks_xyz[10].id}")
+
+      within_spec('tasks-pagination') do
+        click_link 'Next ›'
+      end
+
+      tasks_xyz[0...10].each do |task|
+        expect(page).not_to have_spec("Task##{task.id}")
+      end
+      expect(page).to have_spec("Task##{tasks_xyz[10].id}")
+    end
+
     it 'lets a user delete a task' do
       task = create(:task, name: 'to be deleted', description: 'DELETE!', priority: :normal, status: :waiting)
 
