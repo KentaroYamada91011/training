@@ -52,6 +52,11 @@ en:
         edited: Succeeded to edit the task!
         deleted: Succeeded to delete the task!
       confirm_deletion: Are you sure you want to delete the task?
+    login:
+      page_title: Login
+      submit_button: Login
+      flash:
+        error: Incorrect name or password
     new_task:
       page_title: Add a new task
     edit_task:

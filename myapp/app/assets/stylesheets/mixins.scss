@@ -29,3 +29,34 @@
     background-color: $color-green-900;
   }
 }
+
+@mixin container {
+  max-width: $page-max-width;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin form {
+  width: 100%;
+
+  &__field {
+    width: 100%;
+    min-width: $page-min-width;
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+
+    & + & {
+      margin-top: $space-l;
+    }
+  }
+
+  &__button {
+    @include button-positive;
+
+    margin-top: $space-l;
+  }
+}

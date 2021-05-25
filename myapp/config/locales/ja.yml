@@ -52,6 +52,11 @@ ja:
         edited: タスクを編集しました。
         deleted: タスクを削除しました。
       confirm_deletion: 本当にタスクを削除してよろしいですか？
+    login:
+      page_title: ログイン
+      submit_button: ログイン
+      flash:
+        error: 名前かパスワードが正しくありません
     new_task:
       page_title: タスクの追加
     edit_task:
