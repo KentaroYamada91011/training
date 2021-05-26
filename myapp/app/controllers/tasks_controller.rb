@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   include SessionHandling
+  include ErrorValidationExtractor
 
   before_action :require_login
 
@@ -46,12 +47,5 @@ class TasksController < ApplicationController
     else
       redirect_to root_path, flash: { error: error_message_from(task) }
     end
-  end
-
-  private
-
-  def error_message_from(task)
-    prefix = ->(v) { "- #{v.first}" } # TODO: It assumes only one validation error exists for each attribute.
-    task.errors.messages.values.map(&prefix).join("\n").presence or raise 'This should be called only when validation fails'
   end
 end
