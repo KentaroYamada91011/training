@@ -1,6 +1,6 @@
 class Label < ApplicationRecord
   belongs_to :user
-  has_many :task_label_attachments
+  has_many :task_label_attachments, dependent: :destroy
   has_many :tasks, through: :task_label_attachments
 
   validates :name, presence: true, uniqueness: { scope: :user_id, case_sensitive: true }
