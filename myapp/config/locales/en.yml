@@ -23,6 +23,12 @@ en:
             color:
               blank: Color is required
               hexadecimal_notation: 'Only hexadecimal notation, such as #ef00b3, is supported'
+        task_label_attachment:
+          attributes:
+            base:
+              invalid_ownership: The associated task and label must have a common user
+            label_id:
+              taken: The specified task and label have already been associated
     attributes:
       task:
         name: Name
