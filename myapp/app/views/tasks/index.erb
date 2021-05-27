@@ -10,6 +10,10 @@
       </div>
     <% end %>
 
+    <div class="tasks__header__actions">
+      <%= link_to(t('common.logout'), logout_path, method: :delete, class: 'tasks__header__logout') %>
+    </div>
+
     <%= form_with url: root_path, method: :get, local: true, class: "tasks__search" do |f| %>
       <h2><%= t('pages.tasks.search.title') %></h2>
       <div class="tasks__search-group">

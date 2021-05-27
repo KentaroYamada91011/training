@@ -3,5 +3,8 @@ Rails.application.routes.draw do
   scope '(:locale)', locale: /en|ja/ do
     root to: 'tasks#index'
     resources :tasks, except: :index
+    get '/login', to: 'login#index'
+    post '/login', to: 'login#create'
+    delete '/logout', to: 'logout#destroy'
   end
 end
