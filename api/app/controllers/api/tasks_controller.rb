@@ -9,9 +9,9 @@ class Api::TasksController < ApplicationController
     task = Task.new(task_param)
     if task.valid?
       task = task.save
-      render json: {  status: 'SUCCESS', data: post }
+      render json: {  status: 'SUCCESS', data: task }
     else
-      render json: { status: 'ERROR', data: post.errors }
+      render json: { status: 'ERROR', data: task.errors }
     end
   end
 
@@ -21,7 +21,7 @@ class Api::TasksController < ApplicationController
   end
 
   def update
-    if @task.update(post_params)
+    if @task.update(task_params)
       render json: @task
     else
       render json: { status: 'ERROR', data: @task.errors }
