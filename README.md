@@ -1,10 +1,14 @@
 ## アプリケーションの完成のイメージ
 ホーム:
 
+https://github.com/KentaroYamada91011/training/blob/feature/add-README-%23step4/docs/images/screen1.jpg?raw=true
+
 ログイン、サイインイン画面:
 
-## モデル図
+https://github.com/KentaroYamada91011/training/blob/feature/add-README-%23step4/docs/images/screen2.jpg?raw=true
 
+## モデル図
+https://github.com/KentaroYamada91011/training/blob/feature/add-README-%23step4/docs/images/model.jpg?raw=true
 
 ## スキーマ定義
 tasks
