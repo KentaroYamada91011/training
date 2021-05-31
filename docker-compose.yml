@@ -9,7 +9,7 @@ services:
       MYSQL_DATABASE: sample
       MYSQL_PASSWORD: password
     ports:
-      - 4306:3306
+      - 3306:3306
     volumes:
       - mysql-db:/var/lib/mysql
   api:
@@ -32,7 +32,7 @@ services:
       - ./front/app:/usr/src/app
     command: 'yarn dev'
     ports:
-      - "8000:3000"
+      - "8000:8000"
 volumes:
   mysql-db:
     driver: local
