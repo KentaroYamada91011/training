@@ -8,7 +8,6 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: todo_app_db
       MYSQL_PASSWORD: password
-      host: db
     ports:
       - 3306:3306
     volumes:
