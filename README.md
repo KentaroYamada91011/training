@@ -20,9 +20,9 @@ https://github.com/KentaroYamada91011/training/blob/feature/add-README-%23step4/
 tasks
 |  カラム  |  データ型  |
 | ---- | ---- |
-|  id  |  integer  |
+|  id  |  varchar  |
 |  user_id  |  integer  |
-|  title  |  string  |
+|  title  |  varchar  |
 |  description  |  text  |
 |  deadline  |  datetime  |
 |  status  |  integer  |
@@ -32,16 +32,16 @@ users
 |  カラム  |  データ型  |
 | ---- | ---- |
 |  id  |  integer  |
-|  name  |  string  |
-|  email  |  string  |
-|  password  |  string  |
+|  name  |  varchar  |
+|  email  |  varchar  |
+|  password  |  varchar  |
 |  role  |  integer  |
 
 groups
 |  カラム  |  データ型  |
 | ---- | ---- |
 |  id  |  integer  |
-|  name  |  string  |
+|  name  |  varchar  |
 |  description  |  text  |
 
 group_users
