@@ -30,7 +30,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./front/app:/usr/src/app
-    command: 'yarn dev'
+    command: /bin/sh -c "yarn add yarn && yarn dev"
     ports:
       - "8000:8000"
 volumes:
