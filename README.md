@@ -23,36 +23,39 @@ https://github.com/KentaroYamada91011/training/blob/feature/add-README-%23step4/
 
 
 ## スキーマ定義
-tasks
+task
 |  カラム  |  データ型  |
 | ---- | ---- |
-|  id  |  varchar  |
-|  user_id  |  integer  |
-|  title  |  varchar  |
-|  description  |  text  |
-|  deadline  |  datetime  |
-|  status  |  integer  |
-|  parent_id  |  integer  |
+|  id  |  INT  |
+|  user_id  |  INT  |
+|  title  |  VARCHAR(255)  |
+|  description  |  TEXT  |
+|  deadline  |  DATETIME  |
+|  status  |  INT  |
+|  parent_id  |  INT  |
+user_idはForeign Key
 
-users
+user
 |  カラム  |  データ型  |
 | ---- | ---- |
-|  id  |  integer  |
-|  name  |  varchar  |
-|  email  |  varchar  |
-|  password  |  varchar  |
-|  role  |  integer  |
+|  id  |  INT  |
+|  name  |  VARCHAR(255)  |
+|  email  |  VARCHAR(255)  |
+|  password  |  VARCHAR(255)  |
+|  role  |  INT  |
 
-groups
+group
 |  カラム  |  データ型  |
 | ---- | ---- |
-|  id  |  integer  |
-|  name  |  varchar  |
-|  description  |  text  |
+|  id  |  INT  |
+|  name  |  VARCHAR(255)  |
+|  description  |  TEXT  |
 
-group_users
+group_user
 |  カラム  |  データ型  |
 | ---- | ---- |
-|  id  |  integer  |
-|  user_id  |  integer  |
-|  group_id  |  integer  |
+|  id  |  INT  |
+|  user_id  |  INT  |
+|  group_id  |  INT  |
+
+user_idとgroup_idはForeign Key
