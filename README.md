@@ -23,7 +23,7 @@ https://github.com/KentaroYamada91011/training/blob/feature/add-README-%23step4/
 
 
 ## スキーマ定義
-task
+### task
 |  カラム  |  データ型  |
 | ---- | ---- |
 |  id  |  INT  |
@@ -36,7 +36,7 @@ task
 
 user_idはForeign Key
 
-user
+### user
 |  カラム  |  データ型  |
 | ---- | ---- |
 |  id  |  INT  |
@@ -45,14 +45,14 @@ user
 |  password  |  VARCHAR(255)  |
 |  role  |  INT  |
 
-group
+### group
 |  カラム  |  データ型  |
 | ---- | ---- |
 |  id  |  INT  |
 |  name  |  VARCHAR(255)  |
 |  description  |  TEXT  |
 
-group_user
+### group_user
 |  カラム  |  データ型  |
 | ---- | ---- |
 |  id  |  INT  |
