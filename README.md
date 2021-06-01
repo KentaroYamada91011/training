@@ -33,6 +33,7 @@ task
 |  deadline  |  DATETIME  |
 |  status  |  INT  |
 |  parent_id  |  INT  |
+
 user_idはForeign Key
 
 user
