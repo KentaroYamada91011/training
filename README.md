@@ -8,7 +8,7 @@ https://github.com/KentaroYamada91011/training/blob/feature/add-README-%23step4/
 https://github.com/KentaroYamada91011/training/blob/feature/add-README-%23step4/docs/images/screen2.jpg?raw=true
 
 ## モデル図
-https://github.com/KentaroYamada91011/training/blob/feature/add-README-%23step4/docs/images/model.jpg?raw=true
+https://github.com/KentaroYamada91011/training/blob/feature/add-README-%23step4/docs/images/model.png?raw=true
 
 ## スキーマ定義
 tasks
