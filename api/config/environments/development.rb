@@ -50,5 +50,5 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   # host を docker コンテナの名前に合わせる
-  config.hosts = "api"
+  config.hosts << "api"
 end
