@@ -3,7 +3,7 @@
 
 https://github.com/KentaroYamada91011/training/blob/feature/add-README-%23step4/docs/images/screen1.jpg?raw=true
 
-ログイン、サイインイン画面:
+ログイン、サインイン画面:
 
 https://github.com/KentaroYamada91011/training/blob/feature/add-README-%23step4/docs/images/screen2.jpg?raw=true
 
