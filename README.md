@@ -40,11 +40,13 @@ users
 groups
 |  カラム  |  データ型  |
 | ---- | ---- |
+|  id  |  integer  |
 |  name  |  string  |
 |  description  |  text  |
 
 group_users
 |  カラム  |  データ型  |
 | ---- | ---- |
+|  id  |  integer  |
 |  user_id  |  integer  |
 |  group_id  |  integer  |
