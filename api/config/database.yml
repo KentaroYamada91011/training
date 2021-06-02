@@ -14,12 +14,12 @@ default: &default
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
-  password: 
-  host: locaohost
+  password: password
+  host: db
 
 development:
   <<: *default
-  database: sample
+  database: todo_app_db
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
