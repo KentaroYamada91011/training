@@ -16,7 +16,7 @@ const Home = () => {
   const [taskDetail, setTaskDetail] = useState({});
   const [newTask, setNewTask] = useState("");
   const [tasks, setTasks] = useState([]);
-
+  // 初回表示、taskDetail変更ごとに全てのタスク取得
   useEffect(async () => {
     const allTaks = await FetchClient.get("/api/tasks")
     setTasks(allTaks)
@@ -25,6 +25,7 @@ const Home = () => {
   const getTaskDetail = (task) => {
     setTaskDetail(task)
   }
+
   const deleteTask = async (e, task) => {
     e.stopPropagation()
     await FetchClient.delete("/api/tasks/" + task.id)
@@ -45,6 +46,7 @@ const Home = () => {
   const handleNewTaskChange = (e) => {
     setNewTask(e.target.value)
   }
+  // 選択されているタスクが修正されるたびにAPIを回し、task テーブルを修正
   const handleTaskDetailChange = async (e) => {
     let newState = Object.assign({}, taskDetail);
     newState[e.target.name] = e.target.value;
