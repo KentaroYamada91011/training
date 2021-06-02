@@ -1,10 +1,11 @@
 import { axios } from '../api/base';
 
-const FetchClient = {
+const base_url = "http://localhost:3000"
+const FetchClient = {  
   async get(url) {
     let response;
     await axios
-      .get("http://localhost:3000" + url)
+      .get(base_url + url)
       .then(res => response = res.data)
       .catch((error) => {
           console.log(error);
@@ -15,7 +16,7 @@ const FetchClient = {
   async post(url, data) {
     let response;
     await axios
-      .post("http://localhost:3000" + url, data)
+      .post(base_url + url, data)
       .then(res => response = res.data)
       .catch((error) => {
         console.log(error);
@@ -27,7 +28,7 @@ const FetchClient = {
     let response;
     console.log(data)
     await axios
-      .put("http://localhost:3000" + url, data)
+      .put(base_url + url, data)
       .then(res => response = res.data)
       .catch((error) => {
         console.log(error);
@@ -38,7 +39,7 @@ const FetchClient = {
   async delete(url) {
     let response;
     await axios
-      .delete("http://localhost:3000" + url)
+      .delete(base_url + url)
       .then(res => response = res.data)
       .catch((error) => {
         console.log(error);
