@@ -23,6 +23,18 @@ const FetchClient = {
       });
     return response;
   },
+  async put(url, data) {
+    let response;
+    console.log(data)
+    await axios
+      .put("http://localhost:3000" + url, data)
+      .then(res => response = res.data)
+      .catch((error) => {
+        console.log(error);
+        response = {status: "error"}
+      });
+    return response;
+  },
   async delete(url) {
     let response;
     await axios

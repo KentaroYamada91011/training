@@ -12,14 +12,15 @@ import TextField from '@material-ui/core/TextField';
 import React, { useState, useEffect } from 'react';
 import FetchClient from '../api/fetchClient'
 
-const Home = (props) => {
+const Home = () => {
   const [taskDetail, setTaskDetail] = useState({});
   const [newTask, setNewTask] = useState("");
   const [tasks, setTasks] = useState([]);
 
-  useEffect(() => {
-    setTasks(props.tasks)
-  }, []);
+  useEffect(async () => {
+    const allTaks = await FetchClient.get("/api/tasks")
+    setTasks(allTaks)
+  }, [taskDetail]);
 
   const getTaskDetail = (task) => {
     setTaskDetail(task)
@@ -43,6 +44,14 @@ const Home = (props) => {
 
   const handleNewTaskChange = (e) => {
     setNewTask(e.target.value)
+  }
+  const handleTaskDetailChange = async (e) => {
+    let newState = Object.assign({}, taskDetail);
+    newState[e.target.name] = e.target.value;
+    if (e.nativeEvent.isComposing !== true) {
+      const res = await FetchClient.put("/api/tasks/"+ taskDetail.id, { task: newState })
+    }
+    setTaskDetail(newState)
   }
 
   return (
@@ -86,35 +95,21 @@ const Home = (props) => {
           </div>
           <div className={'home__main__list' + ' ' + `home__main__list--right`}>
             <h2>
-                task詳細
+              task詳細
+            </h2>
+            <div>
+              <h2>
+                <input name="title" className="home__description__title" type="text" value={taskDetail.title} onChange={(e) => handleTaskDetailChange(e)} onKeyUp={(e) => handleTaskDetailChange(e)}/>
               </h2>
-              <table>
-                <div onClick={() => getTaskDetail(task)}>
-                    <h2>
-                      {taskDetail.title}
-                    </h2>
-                    <p>
-                    {taskDetail.description}
-                    </p>
-                  </div>
-              </table>
+              <p>
+              <textarea name="description" className="home__description__description" type="text" value={taskDetail.description} onChange={(e) => handleTaskDetailChange(e)} onKeyUp={(e) => handleTaskDetailChange(e)} />
+              </p>
+            </div>
           </div>
         </div>
       </Container>
     </Layout>
   )
-}
-
-export const getStaticProps = async () => {
-  // URLはlocalhostではなくapiとなる
-  const response = await fetch("http://api:3000/api/tasks", {method: "GET"});
-  const json = await response.json();
-
-  return {
-    props: {
-      tasks: json
-    },
-  };
 }
 
 export default Home;
