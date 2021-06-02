@@ -88,8 +88,8 @@ const Home = () => {
             </h3>
             <div>
               {tasks.map((task) =>
-                <div onClick={() => getTaskDetail(task)}>
-                  {task.id}.{task.title}
+                <div  className={task.id == taskDetail.id? 'home__main__item home__main__item--selected' : 'home__main__item'}　onClick={() => getTaskDetail(task)}>
+                  <p>{task.id}.{task.title}</p>
                   <DeleteOutlinedIcon onClick={(e) => deleteTask(e, task)}/>
                 </div>
               )}
