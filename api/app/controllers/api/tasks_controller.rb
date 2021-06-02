@@ -1,8 +1,5 @@
 class Api::TasksController < ApplicationController
-  before_action :set_task, only: [:destroy, :update, :show]
-  def show
-    render json: @task
-  end
+  before_action :set_task, only: [:destroy, :update]
 
   def index
     @tasks = Task.all
