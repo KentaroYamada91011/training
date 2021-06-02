@@ -6,10 +6,11 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import React, { useState, useEffect } from 'react';
-import FetchClient from '../components/api/fetchClient'
+import FetchClient from '../api/fetchClient'
 
 const Home = (props) => {
   const [taskDetail, setTaskDetail] = useState({});
@@ -22,6 +23,12 @@ const Home = (props) => {
 
   const getTaskDetail = (task) => {
     setTaskDetail(task)
+  }
+  const deleteTask = async (e, task) => {
+    e.stopPropagation()
+    await FetchClient.delete("/api/tasks/" + task.id)
+    const allTaks = await FetchClient.get("/api/tasks")
+    setTasks(allTaks)
   }
 
   const postTask = async (e) => {
@@ -72,6 +79,7 @@ const Home = (props) => {
               {tasks.map((task) =>
                 <div onClick={() => getTaskDetail(task)}>
                   {task.id}.{task.title}
+                  <DeleteOutlinedIcon onClick={(e) => deleteTask(e, task)}/>
                 </div>
               )}
             </div>

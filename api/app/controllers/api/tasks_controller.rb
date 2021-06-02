@@ -2,7 +2,7 @@ class Api::TasksController < ApplicationController
   before_action :set_task, only: [:destroy, :update]
 
   def index
-    @tasks = Task.all
+    @tasks = Task.all.order(id: "DESC")
     render json: @tasks
   end
 

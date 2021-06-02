@@ -14,3 +14,18 @@ a {
 * {
   box-sizing: border-box;
 }
+.home__main {
+  display: flex;
+  margin-top: 64px;
+}
+.home__main__list{
+  width: 50%;
+}
+.home__main__list--right {
+  border-left: solid 1px #ddd;
+}
+.home__description__title {
+  width: 100%;
+  border: none;
+  outline: none;
+}

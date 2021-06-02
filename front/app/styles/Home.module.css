@@ -112,16 +112,7 @@
   height: 1em;
   margin-left: 0.5rem;
 }
-.home__main {
-  display: flex;
-  margin-top: 64px;
-}
-.home__main__list{
-  width: 50%;
-}
-.home__main__list--right {
-  border-left: solid 1px #ddd;
-}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;
