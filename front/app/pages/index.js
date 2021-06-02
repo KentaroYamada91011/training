@@ -29,8 +29,7 @@ const Home = () => {
   const deleteTask = async (e, task) => {
     e.stopPropagation()
     await FetchClient.delete("/api/tasks/" + task.id)
-    const allTaks = await FetchClient.get("/api/tasks")
-    setTasks(allTaks)
+    setTaskDetail({title: "", description: "", deadline: ""})
   }
 
   const postTask = async (e) => {
