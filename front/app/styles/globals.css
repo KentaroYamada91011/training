@@ -45,7 +45,8 @@ a {
   display: flex;
   justify-content: space-between;
   margin: 4px;
-  box-sizing: border-box;
+  box-sizing: content-box;
+  border-bottom: 1px solid #fff;
 }
 .home__main__item--selected {
   border-bottom: 1px solid #222;
