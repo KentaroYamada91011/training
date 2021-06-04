@@ -1,4 +1,4 @@
-class Api
+module Api
   class TasksController < ApplicationController
     before_action :set_task, only: %i[destroy update]
 
