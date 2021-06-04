@@ -7,26 +7,23 @@ class Api::TasksController < ApplicationController
   end
 
   def create
-    task = Task.new(task_param)
-    if task.valid?
-      task = task.save
-      render json: {  status: 'SUCCESS', data: task }
-    else
-      render json: { status: 'ERROR', data: task.errors }
-    end
+    task = Task.create!(task_param)
+    render json: {  status: 'SUCCESS', data: task }
+    rescue => e
+      render json: { status: 'ERROR', message: e }
   end
 
   def destroy
     @task.destroy
     render json: { status: 'SUCCESS', message: 'Delete the task', data: @task}
+    rescue => e
+      render json: { status: 'ERROR', message: e }
   end
 
   def update
-    if @task.update(task_param)
-      render json: {  status: 'SUCCESS', data: @task }
-    else
-      render json: { status: 'ERROR', data: @task.errors }
-    end
+    @task.update!(task_param)
+    rescue => e
+      render json: { status: 'ERROR', message: e }
   end
 
   private
