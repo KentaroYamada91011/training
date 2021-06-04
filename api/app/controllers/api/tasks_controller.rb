@@ -22,6 +22,7 @@ class Api::TasksController < ApplicationController
 
   def update
     @task.update!(task_param)
+    render json: {  status: 'SUCCESS', data: @task }
     rescue => e
       render json: { status: 'ERROR', message: e }
   end
