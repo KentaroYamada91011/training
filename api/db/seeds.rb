@@ -5,3 +5,5 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+now = Time.current
+Task.create(user_id: 1, title: "サンプルプロジェクト", description: "サンプル", deadline: now.tomorrow, status: 10, parent_id: 0)
