@@ -1,49 +1,44 @@
-import { axios } from '../api/base';
+import axios from './base';
 
-const base_url = "http://localhost:3000"
-const FetchClient = {  
+const baseUrl = 'http://localhost:3000';
+const FetchClient = {
   async get(url) {
     let response;
     await axios
-      .get(base_url + url)
-      .then(res => response = res.data)
+      .get(baseUrl + url)
+      .then((res) => { response = res.data; })
       .catch((error) => {
-          console.log(error);
-          response = {status: "error"}
-        });
+        response = { status: 'ERROR', message: error };
+      });
     return response;
   },
   async post(url, data) {
     let response;
     await axios
-      .post(base_url + url, data)
-      .then(res => response = res.data)
+      .post(baseUrl + url, data)
+      .then((res) => { response = res.data; })
       .catch((error) => {
-        console.log(error);
-        response = {status: "error"}
+        response = { status: 'ERROR', message: error };
       });
     return response;
   },
   async put(url, data) {
     let response;
-    console.log(data)
     await axios
-      .put(base_url + url, data)
-      .then(res => response = res.data)
+      .put(baseUrl + url, data)
+      .then((res) => { response = res.data; })
       .catch((error) => {
-        console.log(error);
-        response = {status: "error"}
+        response = { status: 'ERROR', message: error };
       });
     return response;
   },
   async delete(url) {
     let response;
     await axios
-      .delete(base_url + url)
-      .then(res => response = res.data)
+      .delete(baseUrl + url)
+      .then((res) => { response = res.data; })
       .catch((error) => {
-        console.log(error);
-        response = {status: "error"}
+        response = { status: 'ERROR', message: error };
       });
     return response;
   },
