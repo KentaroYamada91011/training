@@ -17,10 +17,11 @@ const Home = () => {
   const [newTask, setNewTask] = useState('');
   const [tasks, setTasks] = useState([]);
   const [selectIndex, setSelectIndex] = useState(0);
+  const basePath = "/api/tasks"
   // 初回表示、taskDetail変更ごとに全てのタスク取得
   useEffect(() => {
     const fetchData = async () => {
-      const allTasks = await FetchClient.get('/api/tasks');
+      const allTasks = await FetchClient.get(basePath);
       setTasks(allTasks);
     };
     fetchData();
@@ -32,15 +33,15 @@ const Home = () => {
 
   const deleteTask = async (e, task) => {
     e.stopPropagation();
-    await FetchClient.delete(`/api/tasks/${task.id}`);
+    await FetchClient.delete(`${basePath}/${task.id}`);
     setTaskDetail({ title: '', description: '', deadline: '' });
   };
 
   const postTask = async (e) => {
     e.preventDefault();
-    const res = await FetchClient.post('/api/tasks', { task: { title: newTask } });
+    const res = await FetchClient.post(basePath, { task: { title: newTask } });
     if (res !== undefined || res.status !== 'error') {
-      const allTasks = await FetchClient.get('/api/tasks');
+      const allTasks = await FetchClient.get(basePath);
       setTasks(allTasks);
       setNewTask('');
     }
