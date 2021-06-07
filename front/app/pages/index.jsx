@@ -16,11 +16,12 @@ const Home = () => {
   const [taskDetail, setTaskDetail] = useState({});
   const [newTask, setNewTask] = useState('');
   const [tasks, setTasks] = useState([]);
+  const [selectIndex, setSelectIndex] = useState(0);
   // 初回表示、taskDetail変更ごとに全てのタスク取得
   useEffect(() => {
     const fetchData = async () => {
-      const allTaks = await FetchClient.get('/api/tasks');
-      setTasks(allTaks);
+      const allTasks = await FetchClient.get('/api/tasks');
+      setTasks(allTasks);
     };
     fetchData();
   }, [taskDetail]);
@@ -39,8 +40,8 @@ const Home = () => {
     e.preventDefault();
     const res = await FetchClient.post('/api/tasks', { task: { title: newTask } });
     if (res !== undefined || res.status !== 'error') {
-      const allTaks = await FetchClient.get('/api/tasks');
-      setTasks(allTaks);
+      const allTasks = await FetchClient.get('/api/tasks');
+      setTasks(allTasks);
       setNewTask('');
     }
   };
