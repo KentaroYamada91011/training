@@ -85,7 +85,7 @@ const Home = () => {
         <div className="home__main">
           <div className="home__main__list">
             <form noValidate autoComplete="off" onSubmit={(e) => postTask(e)}>
-              <TextField fullWidth="true" label="タスクを記入して追加してください" variant="filled" value={newTask} onChange={(e) => handleNewTaskChange(e)} />
+              <TextField name="post-title" id="post-title" fullWidth="true" label="タスクを記入して追加してください" variant="filled" value={newTask} onChange={(e) => handleNewTaskChange(e)} />
             </form>
             <h3>
               taskの一覧
@@ -98,7 +98,7 @@ const Home = () => {
                     .
                     {task.title}
                   </p>
-                  <DeleteOutlinedIcon onClick={(e) => deleteTask(e, task)} />
+                  <DeleteOutlinedIcon className="delete-task" onClick={(e) => deleteTask(e, task)} />
                 </div>
               ))
                 : null}
