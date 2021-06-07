@@ -3,7 +3,7 @@ module Api
     before_action :set_task, only: %i[destroy update]
 
     def index
-      @tasks = Task.all
+      @tasks = Task.all.order(id: "DESC")
       render json: @tasks
     end
 
