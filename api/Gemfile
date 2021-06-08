@@ -48,3 +48,4 @@ gem 'rubocop-rails', require: false
 gem 'rack-cors'
 
 gem "webrick", "~> 1.7"
+gem 'rails-i18n'

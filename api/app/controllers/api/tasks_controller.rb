@@ -9,21 +9,21 @@ module Api
 
     def create
       task = Task.create!(task_param)
-      render json: { status: 'SUCCESS', data: task }
+      render json: { status: 'SUCCESS', message: I18n.t(:create_the_task), data: task }
     rescue ActiveRecord::RecordInvalid => e
       render json: { status: 'ERROR', message: e }
     end
 
     def destroy
       @task.destroy
-      render json: { status: 'SUCCESS', message: 'Delete the task', data: @task }
+      render json: { status: 'SUCCESS', message: I18n.t(:delete_the_task), data: @task }
     rescue ActiveRecord::RecordInvalid => e
       render json: { status: 'ERROR', message: e }
     end
 
     def update
       @task.update!(task_param)
-      render json: { status: 'SUCCESS', data: @task }
+      render json: { status: 'SUCCESS', message: I18n.t(:update_the_task), data: @task }
     rescue ActiveRecord::RecordInvalid => e
       render json: { status: 'ERROR', message: e }
     end
