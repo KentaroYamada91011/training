@@ -1,4 +1,3 @@
 FROM node:14-alpine
-RUN yarn add yarn
-RUN yarn
-WORKDIR /usr/src/app
+WORKDIR "/usr/src/app"
+RUN yarn install

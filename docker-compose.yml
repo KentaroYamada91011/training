@@ -33,7 +33,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./front/app:/usr/src/app
-    command: /bin/sh -c "API_URL=http://api:3001 yarn dev"
+      command: /bin/sh -c "API_URL=http://api:3001  yarn add yarn &&yarn dev"
     ports:
       - "8000:3000"
   front-test:
@@ -42,7 +42,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./front/app:/usr/src/app
-    command: /bin/sh -c "yarn dev"
+    command: /bin/sh -c "yarn add yarn && yarn dev"
     ports:
       - "8001:3000"
   selenium-server:
