@@ -3,3 +3,7 @@ ja:
     delete_the_task: "タスクが正常に削除されました"
     create_the_task: "タスクが正常に作成されました"
     update_the_task: "タスクが正常に更新されました"
+  status:
+    not_started: "未着手"
+    in_progress: "進行中"
+    done: "終了"
