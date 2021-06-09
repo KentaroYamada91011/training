@@ -2,20 +2,21 @@ require 'rails_helper'
 
 RSpec.describe 'top page', type: :feature, retry: 7 do
   before do
-    @task = Task.create!(title: '今日のやること')
+    subject { page }
+    let(:task) { Task.create!(title: '今日のやること') }
     visit ''
     sleep(2)
   end
   it 'page の取得' do
-    expect(page).to have_content '今日のやること'
-    expect(page).to have_content 'taskの一覧'
-    expect(page).to have_content 'task詳細'
+    is_expected.to have_content '今日のやること'
+    is_expected.to have_content 'taskの一覧'
+    is_expected.to have_content 'task詳細'
   end
 
   it 'task の削除' do
     # 削除ボタンをクリック
     page.first(".delete-task").click
-    expect(page).not_to have_content '今日のやること'
+    is_expected.not_to have_content '今日のやること'
   end
 
   it 'task の作成' do
@@ -23,7 +24,7 @@ RSpec.describe 'top page', type: :feature, retry: 7 do
     fill_in 'post-title', with: 'post title'
     # テキストボックス内でリターンキーを押下
     find('#post-title').send_keys(:enter)
-    expect(page).to have_content 'post title'
+    is_expected.to have_content 'post title'
   end
 
   it 'task の title 更新' do
