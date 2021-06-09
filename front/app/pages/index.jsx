@@ -9,6 +9,8 @@ import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import React, { useState, useEffect } from 'react';
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 import Layout from '../components/layout';
 import FetchClient from '../api/fetchClient';
 
@@ -16,8 +18,8 @@ const Home = () => {
   const [taskDetail, setTaskDetail] = useState({});
   const [newTask, setNewTask] = useState('');
   const [tasks, setTasks] = useState([]);
-  const [selectIndex, setSelectIndex] = useState(0);
-  const basePath = "/api/tasks"
+  const [errorMessage, setErrorMessage] = useState('');
+  const basePath = '/api/tasks';
   // 初回表示、taskDetail変更ごとに全てのタスク取得
   useEffect(() => {
     const fetchData = async () => {
@@ -40,10 +42,13 @@ const Home = () => {
   const postTask = async (e) => {
     e.preventDefault();
     const res = await FetchClient.post(basePath, { task: { title: newTask } });
-    if (res !== undefined || res.status !== 'error') {
+    if (res !== undefined && res.status !== 'ERROR') {
       const allTasks = await FetchClient.get(basePath);
       setTasks(allTasks);
+      setErrorMessage('');
       setNewTask('');
+    } else {
+      setErrorMessage(res.message);
     }
   };
 
@@ -55,7 +60,12 @@ const Home = () => {
     const newState = { ...taskDetail };
     newState[e.target.name] = e.target.value;
     if (e.nativeEvent.isComposing !== true) {
-      await FetchClient.put(`/api/tasks/${taskDetail.id}`, { task: newState });
+      const res = await FetchClient.put(`/api/tasks/${taskDetail.id}`, { task: newState });
+      if (res !== null && res.status !== 'ERROR') {
+        setErrorMessage('');
+      } else {
+        setErrorMessage(res.message);
+      }
     }
     setTaskDetail(newState);
   };
@@ -119,6 +129,14 @@ const Home = () => {
           </div>
         </div>
       </Container>
+      {errorMessage !== ''
+        ? (
+          <Alert severity="error" className="home__error">
+            <AlertTitle>エラー</AlertTitle>
+            <strong>{errorMessage}</strong>
+          </Alert>
+        )
+        : null}
     </Layout>
   );
 };
