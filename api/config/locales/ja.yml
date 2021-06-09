@@ -1,0 +1,5 @@
+ja:
+  errors:
+    delete_the_task: "タスクが正常に削除されました"
+    create_the_task: "タスクが正常に作成されました"
+    update_the_task: "タスクが正常に更新されました"
