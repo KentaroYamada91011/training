@@ -47,5 +47,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'rubocop-rails', require: false
 gem 'rack-cors'
 
-gem "webrick", "~> 1.7"
+gem 'webrick', '~> 1.7'
 gem 'rails-i18n'
