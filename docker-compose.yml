@@ -58,3 +58,5 @@ volumes:
     driver: local
   yarn-install:
     driver: local
+  bundle-install:
+    driver: local

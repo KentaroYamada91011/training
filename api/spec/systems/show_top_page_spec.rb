@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'top page', type: :feature, retry: 7 do
+  subject { page }
+  let!(:task) { Task.create!(title: '今日のやること') }
   before do
-    subject { page }
-    let(:task) { Task.create!(title: '今日のやること') }
     visit ''
     sleep(2)
   end
