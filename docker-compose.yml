@@ -19,10 +19,14 @@ services:
     build:
       context: ./api/
       dockerfile: Dockerfile
+    environment:
+      SELENIUM_URL: http://selenium-server:4444/wd/hub
     ports:
       - 3000:3000
+      - 3001:3001
     volumes:
       - ./api:/app
+      - bundle-install:/usr/local/bundle:delegated
     command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
   front: 
     build:
@@ -30,9 +34,29 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./front/app:/usr/src/app
-    command: /bin/sh -c "yarn add yarn && yarn dev"
+      - yarn-install:/usr/src/app/node_modules:delegated
+    command: /bin/sh -c "yarn install && yarn dev"
     ports:
       - "8000:3000"
+  front-test:
+    build:
+      context: ./front/
+      dockerfile: Dockerfile
+    volumes:
+      - ./front/app:/usr/src/app
+      - yarn-install:/usr/src/app/node_modules:delegated
+    command: /bin/sh -c "API_URL=http://api:3001 yarn install && yarn dev"
+    ports:
+      - "8001:3000"
+  selenium-server:
+    image: selenium/standalone-chrome-debug:3.11.0-bismuth
+    ports:
+      - 4444:4444
+      - 5900:5900
 volumes:
   mysql-db:
+    driver: local
+  yarn-install:
+    driver: local
+  bundle-install:
     driver: local

@@ -24,7 +24,15 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'capybara'
+  gem 'capybara-screenshot'
+  gem 'factory_bot_rails'
+  gem 'pry-byebug'
+  gem 'rspec-rails'
+  gem 'selenium-webdriver'
+  gem 'simplecov', require: false
+  gem 'rspec-retry'
 end
 
 group :development do
@@ -38,3 +46,5 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'rubocop-rails', require: false
 gem 'rack-cors'
+
+gem "webrick", "~> 1.7"

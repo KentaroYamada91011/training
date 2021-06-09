@@ -1,6 +1,9 @@
 import axios from './base';
 
+// 開発用のbaseURL
 const baseUrl = 'http://localhost:3000';
+// テスト時のbaseURL(テスト実行時のみコメントアウトを外す)
+// const baseUrl = 'http://api:3001';
 const FetchClient = {
   async get(url) {
     let response;
