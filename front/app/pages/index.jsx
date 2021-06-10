@@ -30,6 +30,7 @@ const Home = () => {
   }, [taskDetail]);
 
   const getTaskDetail = (task) => {
+    task.deadline = task.deadline.slice(0, task.deadline.slice(0, task.deadline.indexOf('.')).lastIndexOf(':'));
     setTaskDetail(task);
   };
 
@@ -61,7 +62,7 @@ const Home = () => {
     newState[e.target.name] = e.target.value;
     if (e.nativeEvent.isComposing !== true) {
       const res = await FetchClient.put(`/api/tasks/${taskDetail.id}`, { task: newState });
-      if (res !== null && res.status !== 'ERROR') {
+      if (res !== null && res !== undefined && res.status !== 'ERROR') {
         setErrorMessage('');
       } else {
         setErrorMessage(res.message);
@@ -118,6 +119,22 @@ const Home = () => {
             <h2>
               task詳細
             </h2>
+            {taskDetail.deadline !== undefined
+              ? (
+                <TextField
+                  id="datetime-local"
+                  label="締め切り"
+                  type="datetime-local"
+                  name="deadline"
+                  defaultValue={taskDetail.deadline}
+                  value={taskDetail.deadline === '9999-12-31T23:59' ? '' : taskDetail.deadline}
+                  onChange={(e) => handleTaskDetailChange(e)}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              )
+              : null}
             <div>
               <h2>
                 <input name="title" className="home__description__title" type="text" value={taskDetail.title} onChange={(e) => handleTaskDetailChange(e)} onKeyUp={(e) => handleTaskDetailChange(e)} />
