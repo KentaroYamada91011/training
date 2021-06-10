@@ -43,4 +43,12 @@ RSpec.describe 'top page', type: :feature, retry: 7 do
     sleep(5)
     expect(page.first(".home__description__description")).to have_content '@'
   end
+  it 'task を期限順に並び替え' do
+    task1 = Task.create!(title: '期限間近', deadline: '2021-06-31T23:59')
+    task2 = Task.create!(title: '期限まだ先', deadline: '2022-06-31T23:59')
+    page.first(".home__sort__button").click
+    message = task1.id.to_s + '.期限間近'
+    sleep(5)
+    expect(page.first(".home__main__title")).to have_content message
+  end
 end
