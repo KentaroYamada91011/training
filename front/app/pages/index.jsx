@@ -13,6 +13,7 @@ import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
+import NativeSelect from '@material-ui/core/NativeSelect';
 import Layout from '../components/layout';
 import FetchClient from '../api/fetchClient';
 
@@ -131,19 +132,32 @@ const Home = () => {
             </h2>
             {taskDetail.deadline !== undefined
               ? (
-                <TextField
-                  id="datetime-local"
-                  label="締め切り"
-                  type="datetime-local"
-                  name="deadline"
-                  className="deadline"
-                  defaultValue={taskDetail.deadline}
-                  value={taskDetail.deadline === '9999-12-31T23:59' ? '' : taskDetail.deadline}
-                  onChange={(e) => handleTaskDetailChange(e)}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
+                <>
+                  <TextField
+                    id="datetime-local"
+                    label="締め切り"
+                    type="datetime-local"
+                    name="deadline"
+                    className="deadline"
+                    defaultValue={taskDetail.deadline}
+                    value={taskDetail.deadline === '9999-12-31T23:59' ? '' : taskDetail.deadline}
+                    onChange={(e) => handleTaskDetailChange(e)}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                  <div>
+                    <NativeSelect
+                      name="status"
+                      value={taskDetail.status}
+                      onChange={(e) => handleTaskDetailChange(e)}
+                    >
+                      <option value="未着手">未着手</option>
+                      <option value="進行中">進行中</option>
+                      <option value="終了">終了</option>
+                    </NativeSelect>
+                  </div>
+                </>
               )
               : null}
             <div>
