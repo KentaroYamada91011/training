@@ -3,7 +3,7 @@ module Api
     before_action :set_task, only: %i[destroy update]
 
     def index
-      @tasks = Task.all.order(id: 'DESC')
+      @tasks = Task.search(search_params).order(id: 'DESC')
       render json: @tasks
     end
 
@@ -37,6 +37,12 @@ module Api
     def task_param
       params.fetch(:task, {}).permit(
         :user_id, :title, :description, :deadline, :status, :parent_id
+      )
+    end
+
+    def search_params
+      params.fetch(:task, {}).permit(
+        :title, :status
       )
     end
   end

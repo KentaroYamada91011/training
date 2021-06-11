@@ -5,10 +5,10 @@ const baseUrl = 'http://localhost:3000';
 // テスト時のbaseURL(テスト実行時のみコメントアウトを外す)
 // const baseUrl = 'http://api:3001';
 const FetchClient = {
-  async get(url) {
+  async get(url, params) {
     let response;
     await axios
-      .get(baseUrl + url)
+      .get(baseUrl + url, params)
       .then((res) => { response = res.data; })
       .catch((error) => {
         response = { status: 'ERROR', message: error };

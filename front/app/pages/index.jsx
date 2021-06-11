@@ -3,8 +3,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
-import Badge from '@material-ui/core/Badge';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
@@ -17,17 +15,20 @@ import NativeSelect from '@material-ui/core/NativeSelect';
 import Layout from '../components/layout';
 import FetchClient from '../api/fetchClient';
 
-const Home = () => {
+const Home = (data) => {
   const [taskDetail, setTaskDetail] = useState({});
   const [newTask, setNewTask] = useState('');
   const [tasks, setTasks] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [isSortedByTime, setIsSortedByTime] = useState(false);
   const basePath = '/api/tasks';
-  // 初回表示、taskDetail変更ごとに全てのタスク取得
+
+  // const { status, title } = router.query;
+  // 初回表示、taskDetail変更ごとにsss全てのタスク取得
   useEffect(() => {
     const fetchData = async () => {
-      const allTasks = await FetchClient.get(basePath);
+      const getParams = (data.status !== undefined) ? { params: { task: data } } : {};
+      const allTasks = await FetchClient.get(basePath, getParams);
       if (isSortedByTime) {
         allTasks.sort((a, b) => (a.deadline < b.deadline ? -1 : 1));
       }
@@ -92,11 +93,27 @@ const Home = () => {
           <Typography component="h1" variant="h6" color="inherit" noWrap>
             TO DO リスト
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
+          {/* <SearchIcon/> */}
+          <form noValidate autoComplete="off">
+            <NativeSelect
+              defaultValue={data.status}
+              name="status"
+            >
+              <option value="全て">全て</option>
+              <option value="未着手">未着手</option>
+              <option value="進行中">進行中</option>
+              <option value="終了">終了</option>
+            </NativeSelect>
+            <input
+              name="title"
+              defaultValue={data.title}
+              label="検索"
+              margin="normal"
+              variant="outlined"
+              size="small"
+            />
+            <input type="submit" value="リクエストを送信" />
+          </form>
         </Toolbar>
       </AppBar>
       <Container>
@@ -107,7 +124,7 @@ const Home = () => {
             </form>
             <h3>
               taskの一覧
-              <span onClick={() => setIsSortedByTime(!isSortedByTime)} className='home__sort__button'>
+              <span onClick={() => setIsSortedByTime(!isSortedByTime)} className="home__sort__button">
                 <ImportExportIcon color={isSortedByTime ? 'primary' : 'disabled'} fontSize="small" />
                 <EventNoteIcon color={isSortedByTime ? 'primary' : 'disabled'} fontSize="small" />
               </span>
@@ -115,7 +132,7 @@ const Home = () => {
             <div>
               {tasks != null && tasks.status !== 'ERROR' ? tasks.map((task) => (
                 <div className={task.id == taskDetail.id ? 'home__main__item home__main__item--selected' : 'home__main__item'} onClick={() => getTaskDetail(task)}>
-                  <p className='home__main__title'>
+                  <p className="home__main__title">
                     {task.id}
                     .
                     {task.title}
@@ -182,5 +199,15 @@ const Home = () => {
     </Layout>
   );
 };
-
+export function getServerSideProps({ query }) {
+  if (query.status !== undefined) {
+    const data = { status: query.status, title: query.title };
+    return {
+      props: data,
+    };
+  }
+  return {
+    props: {},
+  };
+}
 export default Home;
