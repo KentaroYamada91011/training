@@ -10,17 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_31_102132) do
+ActiveRecord::Schema.define(version: 2021_06_09_141240) do
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.integer "user_id", default: 1, null: false
-    t.string "title", null: false
+    t.string "title", limit: 30, null: false
     t.string "description", default: "", null: false
     t.datetime "deadline", default: "9999-12-31 23:59:59", null: false
     t.integer "status", default: 10, null: false
     t.integer "parent_id", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["title"], name: "index_tasks_on_title"
   end
 
 end

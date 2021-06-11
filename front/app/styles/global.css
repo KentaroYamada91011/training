@@ -18,6 +18,9 @@ a {
 * {
   box-sizing: border-box;
 }
+.MuiToolbar-root {
+  background-color: #fff;
+}
 .home__main {
   display: flex;
   margin-top: 64px;
@@ -50,4 +53,9 @@ a {
 }
 .home__main__item--selected {
   border-bottom: 1px solid #222;
+}
+.home__error {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 }
