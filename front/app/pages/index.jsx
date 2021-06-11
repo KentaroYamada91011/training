@@ -96,7 +96,7 @@ const Home = (data) => {
           {/* <SearchIcon/> */}
           <form noValidate autoComplete="off">
             <NativeSelect
-              defaultValue={data.status}
+              defaultValue={data.status !== undefined ? data.status : '全て'}
               name="status"
             >
               <option value="全て">全て</option>
@@ -106,13 +106,14 @@ const Home = (data) => {
             </NativeSelect>
             <input
               name="title"
+              id="header-title"
               defaultValue={data.title}
               label="検索"
               margin="normal"
               variant="outlined"
               size="small"
             />
-            <input type="submit" value="リクエストを送信" />
+            <input id="search" type="submit" value="検索" />
           </form>
         </Toolbar>
       </AppBar>
@@ -179,10 +180,10 @@ const Home = (data) => {
               : null}
             <div>
               <h2>
-                <input name="title" className="home__description__title" type="text" value={taskDetail.title} onChange={(e) => handleTaskDetailChange(e)} onKeyUp={(e) => handleTaskDetailChange(e)} />
+                <input name="title" id="home-title" className="home__description__title" type="text" value={taskDetail.title} onChange={(e) => handleTaskDetailChange(e)} onKeyUp={(e) => handleTaskDetailChange(e)} />
               </h2>
               <p>
-                <textarea name="description" className="home__description__description" type="text" value={taskDetail.description} onChange={(e) => handleTaskDetailChange(e)} onKeyUp={(e) => handleTaskDetailChange(e)} />
+                <textarea name="description" id="home-description" className="home__description__description" type="text" value={taskDetail.description} onChange={(e) => handleTaskDetailChange(e)} onKeyUp={(e) => handleTaskDetailChange(e)} />
               </p>
             </div>
           </div>

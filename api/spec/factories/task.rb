@@ -1,9 +1,8 @@
 FactoryBot.define do
     factory :task1, class: Task do
       title { 'task1' }
-      description { 'this is 1st task' }
+      description { '' }
       status { 10 }
-      deadline { Date.today.end_of_month }
     end
     factory :task2, class:Task do
       title { 'task2' }
