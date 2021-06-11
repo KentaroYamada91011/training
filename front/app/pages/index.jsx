@@ -175,17 +175,17 @@ const Home = (data) => {
                       <option value="終了">終了</option>
                     </NativeSelect>
                   </div>
+                  <div>
+                    <h2>
+                      <input name="title" id="home-title" className="home__description__title" type="text" value={taskDetail.title} onChange={(e) => handleTaskDetailChange(e)} onKeyUp={(e) => handleTaskDetailChange(e)} />
+                    </h2>
+                    <p>
+                      <textarea name="description" id="home-description" className="home__description__description" type="text" value={taskDetail.description} onChange={(e) => handleTaskDetailChange(e)} onKeyUp={(e) => handleTaskDetailChange(e)} />
+                    </p>
+                  </div>
                 </>
               )
               : null}
-            <div>
-              <h2>
-                <input name="title" id="home-title" className="home__description__title" type="text" value={taskDetail.title} onChange={(e) => handleTaskDetailChange(e)} onKeyUp={(e) => handleTaskDetailChange(e)} />
-              </h2>
-              <p>
-                <textarea name="description" id="home-description" className="home__description__description" type="text" value={taskDetail.description} onChange={(e) => handleTaskDetailChange(e)} onKeyUp={(e) => handleTaskDetailChange(e)} />
-              </p>
-            </div>
           </div>
         </div>
       </Container>
