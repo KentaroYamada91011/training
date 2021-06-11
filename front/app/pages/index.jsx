@@ -147,7 +147,7 @@ const Home = (data) => {
               ))
                 : null}
             </div>
-            <Pagination count={maxpagination} onChange={(e, page) => setPagination(page)} />
+            <Pagination count={maxpagination} onChange={(e, page) => {setPagination(page);setTaskDetail({})}} />
           </div>
           <div className={'home__main__list' + ' ' + 'home__main__list--right'}>
             <h2>
