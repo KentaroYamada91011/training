@@ -3,7 +3,7 @@ class Task < ApplicationRecord
   validates :title, presence: true, length: { maximum: 30 }, allow_blank: false
   validates :description, length: { maximum: 255 }
   def self.search(search)
-    return Task.all unless search[:status] != nil
+    return Task.all if search[:status].nil? && search[:title].nil?
     if search[:status] == "全て"
       Task.where('title like ?',"%#{search[:title]}%")
     else
