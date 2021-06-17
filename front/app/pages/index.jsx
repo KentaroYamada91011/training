@@ -11,6 +11,8 @@ import TextField from '@material-ui/core/TextField';
 import React, { useState, useEffect } from 'react';
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
+import EventNoteIcon from '@material-ui/icons/EventNote';
+import ImportExportIcon from '@material-ui/icons/ImportExport';
 import Layout from '../components/layout';
 import FetchClient from '../api/fetchClient';
 
@@ -19,17 +21,22 @@ const Home = () => {
   const [newTask, setNewTask] = useState('');
   const [tasks, setTasks] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const [isSortedByTime, setIsSortedByTime] = useState(false);
   const basePath = '/api/tasks';
   // 初回表示、taskDetail変更ごとに全てのタスク取得
   useEffect(() => {
     const fetchData = async () => {
       const allTasks = await FetchClient.get(basePath);
+      if (isSortedByTime) {
+        allTasks.sort((a, b) => (a.deadline < b.deadline ? -1 : 1));
+      }
       setTasks(allTasks);
     };
     fetchData();
-  }, [taskDetail]);
+  }, [taskDetail, isSortedByTime]);
 
   const getTaskDetail = (task) => {
+    task.deadline = task.deadline.slice(0, task.deadline.slice(0, task.deadline.indexOf('.')).lastIndexOf(':'));
     setTaskDetail(task);
   };
 
@@ -61,7 +68,7 @@ const Home = () => {
     newState[e.target.name] = e.target.value;
     if (e.nativeEvent.isComposing !== true) {
       const res = await FetchClient.put(`/api/tasks/${taskDetail.id}`, { task: newState });
-      if (res !== null && res.status !== 'ERROR') {
+      if (res !== null && res !== undefined && res.status !== 'ERROR') {
         setErrorMessage('');
       } else {
         setErrorMessage(res.message);
@@ -99,11 +106,15 @@ const Home = () => {
             </form>
             <h3>
               taskの一覧
+              <span onClick={() => setIsSortedByTime(!isSortedByTime)} className='home__sort__button'>
+                <ImportExportIcon color={isSortedByTime ? 'primary' : 'disabled'} fontSize="small" />
+                <EventNoteIcon color={isSortedByTime ? 'primary' : 'disabled'} fontSize="small" />
+              </span>
             </h3>
             <div>
               {tasks != null && tasks.status !== 'ERROR' ? tasks.map((task) => (
                 <div className={task.id == taskDetail.id ? 'home__main__item home__main__item--selected' : 'home__main__item'} onClick={() => getTaskDetail(task)}>
-                  <p>
+                  <p className='home__main__title'>
                     {task.id}
                     .
                     {task.title}
@@ -118,6 +129,23 @@ const Home = () => {
             <h2>
               task詳細
             </h2>
+            {taskDetail.deadline !== undefined
+              ? (
+                <TextField
+                  id="datetime-local"
+                  label="締め切り"
+                  type="datetime-local"
+                  name="deadline"
+                  className="deadline"
+                  defaultValue={taskDetail.deadline}
+                  value={taskDetail.deadline === '9999-12-31T23:59' ? '' : taskDetail.deadline}
+                  onChange={(e) => handleTaskDetailChange(e)}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              )
+              : null}
             <div>
               <h2>
                 <input name="title" className="home__description__title" type="text" value={taskDetail.title} onChange={(e) => handleTaskDetailChange(e)} onKeyUp={(e) => handleTaskDetailChange(e)} />
