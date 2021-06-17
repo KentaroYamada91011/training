@@ -12,6 +12,7 @@ import AlertTitle from '@material-ui/lab/AlertTitle';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
 import NativeSelect from '@material-ui/core/NativeSelect';
+import Pagination from '@material-ui/lab/Pagination';
 import Layout from '../components/layout';
 import FetchClient from '../api/fetchClient';
 
@@ -21,6 +22,8 @@ const Home = (data) => {
   const [tasks, setTasks] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [isSortedByTime, setIsSortedByTime] = useState(false);
+  const [pagination, setPagination] = useState(1);
+  const [maxpagination, setMaxPagination] = useState(1);
   const basePath = '/api/tasks';
 
   // const { status, title } = router.query;
@@ -32,10 +35,11 @@ const Home = (data) => {
       if (isSortedByTime) {
         allTasks.sort((a, b) => (a.deadline < b.deadline ? -1 : 1));
       }
-      setTasks(allTasks);
+      setMaxPagination(Math.ceil(allTasks.length / 5));
+      setTasks(allTasks.slice(5 * (pagination - 1), 5 * pagination));
     };
     fetchData();
-  }, [taskDetail, isSortedByTime]);
+  }, [taskDetail, isSortedByTime, pagination]);
 
   const getTaskDetail = (task) => {
     task.deadline = task.deadline.slice(0, task.deadline.slice(0, task.deadline.indexOf('.')).lastIndexOf(':'));
@@ -143,6 +147,7 @@ const Home = (data) => {
               ))
                 : null}
             </div>
+            <Pagination count={maxpagination} onChange={(e, page) => {setPagination(page);setTaskDetail({})}} />
           </div>
           <div className={'home__main__list' + ' ' + 'home__main__list--right'}>
             <h2>
